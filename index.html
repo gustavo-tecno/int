@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeto Integrador - TEMA 02</title>
+    <style>
+        :root {
+            --cor-primaria: #2c3e50;
+            --cor-secundaria: #3498db;
+            --cor-destaque: #e74c3c;
+            --cor-sucesso: #27ae60;
+            --cor-texto: #333;
+            --cor-fundo: #f5f7fa;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f0f4ff 0%, #e6f0ff 100%);
+            color: var(--cor-texto);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .cabecalho {
+            background: linear-gradient(90deg, var(--cor-primaria), var(--cor-secundaria));
+            color: white;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cabecalho::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 300px;
+            height: 300px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+        
+        .titulo-principal {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .subtitulo {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .badge-aula {
+            background: rgba(255,255,255,0.2);
+            padding: 8px 20px;
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .conteudo {
+            padding: 40px;
+        }
+        
+        .grade-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .card-link {
+            background: #f8fafc;
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card-link:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            border-color: var(--cor-secundaria);
+            background: white;
+        }
+        
+        .card-link::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--cor-secundaria);
+        }
+        
+        .card-link.destaque::before {
+            background: var(--cor-destaque);
+        }
+        
+        .card-link.anterior::before {
+            background: var(--cor-sucesso);
+        }
+        
+        .icone-card {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--cor-secundaria);
+        }
+        
+        .card-link.destaque .icone-card {
+            color: var(--cor-destaque);
+        }
+        
+        .card-link.anterior .icone-card {
+            color: var(--cor-sucesso);
+        }
+        
+        .titulo-card {
+            font-size: 1.4rem;
+            color: var(--cor-primaria);
+            margin-bottom: 10px;
+        }
+        
+        .descricao-card {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+        
+        .btn-acessar {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--cor-secundaria);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-acessar:hover {
+            background: #2980b9;
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(41, 128, 185, 0.3);
+        }
+        
+        .btn-acessar.destaque {
+            background: var(--cor-destaque);
+        }
+        
+        .btn-acessar.destaque:hover {
+            background: #c0392b;
+            box-shadow: 0 5px 15px rgba(192, 57, 43, 0.3);
+        }
+        
+        .btn-acessar.anterior {
+            background: var(--cor-sucesso);
+        }
+        
+        .btn-acessar.anterior:hover {
+            background: #229954;
+            box-shadow: 0 5px 15px rgba(34, 153, 84, 0.3);
+        }
+        
+        .link-externo::after {
+            content: " ↗";
+            font-size: 0.9em;
+        }
+        
+        .rodape {
+            text-align: center;
+            padding: 30px;
+            background: var(--cor-primaria);
+            color: white;
+            margin-top: 40px;
+            border-radius: 0 0 20px 20px;
+        }
+        
+        .info-projeto {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .aviso {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 30px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .grade-links {
+                grid-template-columns: 1fr;
+            }
+            
+            .titulo-principal {
+                font-size: 2rem;
+            }
+            
+            .conteudo {
+                padding: 20px;
+            }
+            
+            .info-projeto {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- CABEÇALHO -->
+        <header class="cabecalho">
+            <h1 class="titulo-principal">
+                <i class="fas fa-cloud-upload-alt"></i> TEMA 02
+            </h1>
+            <p class="subtitulo">Estrutura de Sites e Publicação na Web</p>
+            <span class="badge-aula">
+                <i class="fas fa-calendar-alt"></i> Aula Prática | GitHub Pages
+            </span>
+        </header>
+        
+        <!-- CONTEÚDO PRINCIPAL -->
+        <main class="conteudo">
+            <h2 style="color: var(--cor-primaria); margin-bottom: 10px;">
+                <i class="fas fa-book-open"></i> Sumário de Recursos
+            </h2>
+            <p style="color: #666; margin-bottom: 30px;">
+                Acesse todos os materiais necessários para a aula prática de hoje.
+                Todos os links abrem em nova aba para facilitar sua navegação.
+            </p>
+            
+            <div class="grade-links">
+                <!-- CARD 1: TEMA 02 -->
+                <div class="card-link">
+                    <div class="icone-card">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 class="titulo-card">🎯 Conteúdo Completo - TEMA 02</h3>
+                    <p class="descricao-card">
+                        Material completo da aula: HTML básico, GitHub Pages, passo a passo para publicação, 
+                        exemplos interativos e checklist prático.
+                    </p>
+                    <a href="tema2.html" class="btn-acessar" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> Acessar Conteúdo
+                    </a>
+                </div>
+                
+                <!-- CARD 2: TUTORIAL FRONT-END -->
+                <div class="card-link destaque">
+                    <div class="icone-card">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3 class="titulo-card">📚 Tutorial Front-End Interativo</h3>
+                    <p class="descricao-card">
+                        Aprenda HTML, CSS e JavaScript de forma prática e interativa. 
+                        Exemplos ao vivo, exercícios práticos e conceitos fundamentais.
+                    </p>
+                    <a href="https://almeida-cma.github.io/front-end/" 
+                       class="btn-acessar destaque link-externo" 
+                       target="_blank" 
+                       rel="noopener noreferrer">
+                        <i class="fas fa-external-link-alt"></i> Acessar Tutorial
+                    </a>
+                </div>
+                
+                <!-- CARD 3: TEMA ANTERIOR -->
+                <div class="card-link anterior">
+                    <div class="icone-card">
+                        <i class="fas fa-arrow-left"></i>
+                    </div>
+                    <h3 class="titulo-card">🔙 Revisão - TEMA 01</h3>
+                    <p class="descricao-card">
+                        Precisa revisar o conteúdo anterior? Acesse o TEMA 01 completo: 
+                        Planejamento do projeto, formação de agências e template inicial.
+                    </p>
+                    <a href="https://almeida-cma.github.io/proj-1/" 
+                       class="btn-acessar anterior link-externo" 
+                       target="_blank" 
+                       rel="noopener noreferrer">
+                        <i class="fas fa-external-link-alt"></i> Acessar TEMA 01
+                    </a>
+                </div>         
+
+                <!-- CARD 4: GUIA DE ESTUDOS FRONT-END -->
+                <div class="card-link destaque">
+                    <div class="icone-card">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3 class="titulo-card">📚 Guia de Estudos HTML</h3>
+                    <p class="descricao-card">
+                        Aprenda HTML por meio de conceitos básicos que serão abordados durante a aula.
+                        Não é necessário conhecimento prévio.
+                    </p>
+                    <a href="guia_estudos.pdf" 
+                       class="btn-acessar destaque link-externo" 
+                       target="_blank" 
+                       rel="noopener noreferrer">
+                        <i class="fas fa-external-link-alt"></i> Acessar Guia
+                    </a>
+                </div>    
+            </div>        
+            
+            <div class="aviso">
+                <p style="margin: 0;">
+                    <i class="fas fa-info-circle"></i> 
+                    <strong>Importante:</strong> Para a aula de hoje, você precisará de uma conta no GitHub. 
+                    Se ainda não tem, crie uma em <a href="https://github.com" target="_blank" style="color: #856404; font-weight: bold;">github.com</a> (é gratuito).
+                </p>
+            </div>
+        </main>
+        
+        <!-- RODAPÉ -->
+        <footer class="rodape">
+            <h3 style="margin-bottom: 20px;">
+                <i class="fas fa-project-diagram"></i> Projeto Integrador
+            </h3>
+            
+            <div class="info-projeto">
+                <div class="info-item">
+                    <i class="fas fa-newspaper"></i>
+                    <span>Agência de Jornalismo Web</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-users"></i>
+                    <span>6 Encontros Presenciais</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-laptop-code"></i>
+                    <span>Site Público + Conteúdo Digital</span>
+                </div>
+            </div>
+            
+            <p style="margin-top: 20px; font-size: 0.9rem; opacity: 0.8;">
+                <i class="fas fa-external-link-alt"></i> Todos os recursos abrem em nova aba
+            </p>
+        </footer>
+    </div>
+    
+    <!-- Font Awesome (se necessário) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    
+    <script>
+        // Adicionar interatividade aos botões
+        document.addEventListener('DOMContentLoaded', function() {
+            const botoes = document.querySelectorAll('.btn-acessar');
+            
+            botoes.forEach(botao => {
+                botao.addEventListener('click', function(e) {
+                    // Animação de clique
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 200);
+                    
+                    // Log de acesso (para fins educacionais)
+                    console.log(`Acessando: ${this.href}`);
+                });
+            });
+            
+            // Adicionar efeito de digitação ao título
+            const titulo = document.querySelector('.titulo-principal');
+            const textoOriginal = titulo.textContent;
+            titulo.textContent = '';
+            
+            let i = 0;
+            function typeWriter() {
+                if (i < textoOriginal.length) {
+                    titulo.textContent += textoOriginal.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 50);
+                }
+            }
+            
+            // Iniciar efeito após 0.5s
+            setTimeout(typeWriter, 500);
+        });
+    </script>
+</body>
+</html>
